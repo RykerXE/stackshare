@@ -1,0 +1,31 @@
+{
+  "name": "stackservo",
+  "version": "1.0.0",
+  "description": "Backend for Stack Share application",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js | pino-pretty",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose"
+  ],
+  "author": "Ryker",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.19",
+    "mongoose": "^5.9.25",
+    "pino": "^6.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "pino-pretty": "^4.1.0"
+  }
+}
