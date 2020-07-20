@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const pino = require("pino");
 require("dotenv").config();
 
-const UserRegistration = require("./models/UserRegistration");
+const apiRoutes = require("./src/routes");
 
 const { PORT, DB_URI, NODE_ENV } = process.env;
 
@@ -15,7 +15,7 @@ const logger = NODE_ENV === "development" ? pino({
         colorize: true,
         translateTime: true,
         crlf: true,
-    }
+    },
 }) : pino();
 
 const app = express();
@@ -43,12 +43,6 @@ db.once("open", async () => {
 app.get(`/healthcheck`, (req, res) => {
     res.status(200).send("Server up and running...");
 });
-
-app.post(`/api/register`, async (req, res) => {
-    const { email, password } = req.body;
-    const newRegistration = new UserRegistration({ email, password });
-    await newRegistration.save();
-    res.status(200).send("user created succesfully");
-});
+app.use(`/api`, apiRoutes);
 
 app.listen(PORT, () => logger.info(`Application Server started and running on port ${PORT}`));
