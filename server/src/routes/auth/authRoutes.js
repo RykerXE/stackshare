@@ -8,5 +8,8 @@ module.exports = () => {
     router.route(`/register`)
         .post(controller.registration);
 
+    router.route(`/login`)
+        .post(controller.login);
+
     return router;
 };
