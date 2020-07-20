@@ -3,7 +3,7 @@ const controller = require("./authController");
 
 
 module.exports = () => {
-    const router = Router({ mergeParams: true })
+    const router = Router({ mergeParams: true });
 
     router.route(`/register`)
         .post(controller.registration);

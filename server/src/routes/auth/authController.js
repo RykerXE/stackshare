@@ -20,7 +20,7 @@ const login = async (req, res) => {
         const { status, message } = await userLogin({ email, password });
         return res.status(status).send(message);
     } catch (error) {
-        return res.status(500).send("Some error occurred. Please try again")
+        return res.status(500).send("Some error occurred. Please try again");
     }
 }
 

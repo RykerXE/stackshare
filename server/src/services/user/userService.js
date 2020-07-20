@@ -2,6 +2,7 @@ const { get } = require("lodash");
 
 const UserRegistration = require("../../models/UserRegistration");
 const { hash, compare } = require("../../utils/hashHelper");
+const { generateToken } = require("./tokenService");
 
 const checkUserRegistration = async (email) => {
     const userDetails = await UserRegistration.findOne({ email }).lean();
@@ -39,9 +40,10 @@ const userLogin = async userData => {
             message: "Username or password incorrect! Please check"
         };
     }
+    const token = generateToken({ email });
     return {
         status: 200,
-        message: "Validated"
+        message: token
     };
 };
 
