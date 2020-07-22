@@ -7,6 +7,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+import SignUp from './components/SignUp';
 import Home from './components/Home';
 import theme from './theme';
 import { getUser } from './actions';
@@ -22,6 +23,7 @@ const App = () => {
 
   let routes = (
     <Switch>
+      <Route path="/register" component={SignUp} />
       <Route path="/login" component={Login} />
       <Redirect to="/login" />
     </Switch>

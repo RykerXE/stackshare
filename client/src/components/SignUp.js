@@ -13,10 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import { withRouter } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-
-import { login } from '../actions';
+import api from '../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,24 +27,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%',
-    marginTop: theme.spacing(1),
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-const Login = props => {
+export default function SignUp() {
   const classes = useStyles();
   const [form, setForm] = useState({});
-  const { history } = props;
-  const dispatch = useDispatch();
-
-  const handleSubmit = async event => {
-    event.preventDefault();
-    dispatch(login({ ...form }, history));
-  };
 
   const handleChange = event => {
     event.persist();
@@ -55,7 +45,16 @@ const Login = props => {
       ...form,
       [event.target.name]: event.target.value
     }));
-  }
+  };
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+        const { data } = await api.post(`/auth/register`, {...form });
+    } catch (error) {
+        console.error(error);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -65,37 +64,49 @@ const Login = props => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign up
         </Typography>
         <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-            onChange={handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={handleChange}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                autoComplete="name"
+                name="name"
+                variant="outlined"
+                required
+                fullWidth
+                id="name"
+                label="Name"
+                autoFocus
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={handleChange}
+              />
+            </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth
@@ -104,17 +115,12 @@ const Login = props => {
             className={classes.submit}
             onClick={handleSubmit}
           >
-            Sign In
+            Sign Up
           </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/login" variant="body2">
+                Already have an account? Sign in
               </Link>
             </Grid>
           </Grid>
@@ -122,6 +128,4 @@ const Login = props => {
       </div>
     </Container>
   );
-};
-
-export default withRouter(Login);
+}

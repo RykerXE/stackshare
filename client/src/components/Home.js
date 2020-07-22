@@ -33,6 +33,7 @@ const Header = props => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { history } = props;
+  const session = useSelector(state => state.user);
 
   const handleLogout = () => {
     history.push('/login');
@@ -67,7 +68,7 @@ const Header = props => {
             gutterBottom
             variant="h2"
           >
-            Welcome Rajnish
+            Welcome {session.email}
           </Typography>
           <Button
             variant="contained"
