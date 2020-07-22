@@ -1,11 +1,11 @@
 const { signPayload, verifyAndDecodeToken } = require("../../utils/jwtHelper");
 
-const secret = "0xwfdwiko9%$sds&*9^";
+const { SECRET: secret, JWT_ALGORITHM: algorithm } = process.env;
 
 const generateToken = (object) => {
     const signOptions = {
-        expiresIn: 60 * 60 * 12,//config.expireTokenIn,
-        algorithm: "HS256"//config.signingAlgorithm,
+        expiresIn: 60 * 60 * 12,
+        algorithm,
     };
     Object.freeze(signOptions);
 
@@ -18,7 +18,7 @@ const generateToken = (object) => {
 
 const decodeToken = (token) => {
     const decodeOptions = {
-        algorithms: "HS256"//[config.signingAlgorithm],
+        algorithms: algorithm,
     };
     return verifyAndDecodeToken(
         token,

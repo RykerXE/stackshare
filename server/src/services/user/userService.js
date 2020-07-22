@@ -1,8 +1,11 @@
 const { get } = require("lodash");
 
 const UserRegistration = require("../../models/UserRegistration");
+const Users = require("../../models/Users");
 const { hash, compare } = require("../../utils/hashHelper");
 const { generateToken } = require("./tokenService");
+
+const { BCRYPT_SALT_ROUNDS : saltRounds } = process.env;
 
 const checkUserRegistration = async (email) => {
     const userDetails = await UserRegistration.findOne({ email }).lean();
@@ -14,7 +17,7 @@ const checkUserRegistration = async (email) => {
 
 const verifyPassword = async (email, password) => {
     const userDetails = await UserRegistration.findOne({ email });
-    const hashedPassword = get(userDetails, "password");
+    const hashedPassword = get(userDetails, "password", "0xffffff");
     const isPasswordValid = await compare(password, hashedPassword);
     return isPasswordValid;
 };
@@ -22,9 +25,11 @@ const verifyPassword = async (email, password) => {
 const registerUser = async registrationData => {
     try {
         const { email, password } = registrationData;
-        const hashedPassword = await hash(password);
+        const hashedPassword = await hash(password, Number(saltRounds));
         const newRegistration = new UserRegistration({ email, password: hashedPassword });
         await newRegistration.save();
+        const createUser = new Users({email, password: hashedPassword});
+        await createUser.save();
         return { status: 200, message: "User successfully registered. Please proceed to log-in" };
     } catch (error) {
         console.error(error);

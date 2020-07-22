@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-const hash = async (data, saltRounds = 10) => {
+const hash = async (data, saltRounds) => {
     const hashedData = await bcrypt.hash(data, saltRounds);
     return hashedData;
 };
