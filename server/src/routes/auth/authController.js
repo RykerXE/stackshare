@@ -7,6 +7,7 @@ const registration = async (req, res) => {
         const registrationSchema = Joi.object().keys({
             email: Joi.string().email().required(),
             password: Joi.string().min(8).required(),
+            name: Joi.string(),
         });
         const { value, error } = registrationSchema.validate(req.body);
         if (error) {
