@@ -8,7 +8,10 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Button, Hidden, InputLabel, MenuItem, FormControl, Select, Divider } from '@material-ui/core';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import { startCase, get, split } from 'lodash';
-import moment from 'moment'
+import moment from 'moment';
+
+import ShareList from './ShareList';
+import UserShareList from './UserShareList';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  container: {
+    marginTop: theme.spacing(3)
   },
 }));
 
@@ -54,16 +60,44 @@ const Header = props => {
           >
             Welcome Rajnish
           </Typography>
-          <Typography
+        </Grid>
+      </Grid>
+      <Grid
+          className={classes.container}
+          container
+          spacing={3}
+        >
+          <Grid
+            item
+            lg={6}
+            sm={12}
+            xs={12}
+          >
+            <Typography
             component="h3"
             gutterBottom
-            variant="h5"
+            variant="h4"
           >
             List of Shares
           </Typography>
+            <ShareList/>
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            sm={12}
+            xs={12}
+          >
+            <Typography
+            component="h3"
+            gutterBottom
+            variant="h4"
+          >
+            Your Shares
+          </Typography>
+            <UserShareList/>
+          </Grid>
         </Grid>
-
-      </Grid>
     </div>
   );
 };

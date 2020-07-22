@@ -6,7 +6,7 @@ const listAllShares = async (req, res) => {
     try {
         const { page, limit } = req.query;
         const options = {
-            page: page || 1,
+            page: Number(page) || 1,
             limit: limit || 10,
         };
         const aggregate = Shares.aggregate();
