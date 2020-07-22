@@ -12,6 +12,7 @@ import moment from 'moment';
 
 import ShareList from './ShareList';
 import UserShareList from './UserShareList';
+import RealTimeShare from './RealtimeShare';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -96,6 +97,21 @@ const Header = props => {
             Your Shares
           </Typography>
             <UserShareList/>
+          </Grid>
+          <Grid
+            item
+            lg={6}
+            sm={12}
+            xs={12}
+          >
+            <Typography
+            component="h3"
+            gutterBottom
+            variant="h4"
+          >
+            Realtime Share Values
+          </Typography>
+            <RealTimeShare/>
           </Grid>
         </Grid>
     </div>
