@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -28,13 +29,15 @@ const SharesSchema = new Schema({
         type: Boolean,
         required: true
     },
-    currentHolder: Object,
+    currentHolder: String,
     createdAt: Date,
     lastSoldAt: Date,
     shareValueUpdatedAt: Date,
 }, {
     timestamps: false,
 });
+
+SharesSchema.plugin(aggregatePaginate);
 
 const Shares = mongoose.model("shares", SharesSchema);
 module.exports = Shares;
