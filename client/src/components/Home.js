@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
-//import { useSelector } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
-import { Typography, Grid, Button, Hidden, InputLabel, MenuItem, FormControl, Select, Divider } from '@material-ui/core';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import { startCase, get, split } from 'lodash';
-import moment from 'moment';
+import { Typography, Grid, Button } from '@material-ui/core';
 
 import ShareList from './ShareList';
 import UserShareList from './UserShareList';
@@ -68,9 +63,10 @@ const Header = props => {
             gutterBottom
             variant="h2"
           >
-            Welcome {session.email}
+            Welcome {session.name}
           </Typography>
           <Button
+            color="secondary"
             variant="contained"
             onClick={handleLogout}
           >

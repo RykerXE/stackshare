@@ -16,10 +16,11 @@ export const login = (payload, history) => dispatch => {
       localStorage.setItem("token", token);
       history.push(`/home`);
       window.location.reload(false);
-      dispatch(loginSuccess(res.data, history))
+      dispatch(loginSuccess())
     })
     .catch(err => {
-      dispatch(loginFail(err.message))
+      console.log(err);
+      dispatch(loginFail(err))
     });
 };
 
@@ -32,10 +33,8 @@ export const logout = () => dispatch => {
 }
   
 
-const loginSuccess = (payload, history) => ({
+const loginSuccess = (payload) => ({
   type: SESSION_LOGIN_SUCCESS,
-  payload,
-  history,
 });
   
 const loginFail = error => ({

@@ -16,9 +16,12 @@ import { getUser } from './actions';
 const App = () => {
   const token = localStorage.getItem('token') || null;
   const dispatch = useDispatch();
+  const { email } = useSelector(state => state.user);
 
   useEffect(() => {
-    dispatch(getUser());
+    if (token) {
+      dispatch(getUser());
+    }
   }, []);
 
   let routes = (
@@ -29,7 +32,7 @@ const App = () => {
     </Switch>
   );
 
-  if (token) {
+  if (email) {
     routes = (
       <Switch>
         <Route path="/home" exact component={Home} />

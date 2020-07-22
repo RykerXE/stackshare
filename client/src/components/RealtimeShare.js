@@ -26,7 +26,6 @@ const ShareListTable = () => {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
     socket.on("sharesList", data => {
-      console.log(data);
       setSharesList(data.docs);
     });
   }, []);

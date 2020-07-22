@@ -24,11 +24,11 @@ const verifyPassword = async (email, password) => {
 
 const registerUser = async registrationData => {
     try {
-        const { email, password } = registrationData;
+        const { email, password, name } = registrationData;
         const hashedPassword = await hash(password, Number(saltRounds));
-        const newRegistration = new UserRegistration({ email, password: hashedPassword });
+        const newRegistration = new UserRegistration({ email, name, password: hashedPassword });
         await newRegistration.save();
-        const createUser = new Users({email, password: hashedPassword});
+        const createUser = new Users({email, name, password: hashedPassword});
         await createUser.save();
         return { status: 200, message: "User successfully registered. Please proceed to log-in" };
     } catch (error) {
