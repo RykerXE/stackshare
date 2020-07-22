@@ -17,7 +17,7 @@ const UserRegistrationSchema = new Schema(
       type: String,
       required: true
     },
-    isApproved: Boolean,
+    isSynced: Boolean,
   },
   {
     timestamps: true
