@@ -1,6 +1,6 @@
 const { signPayload, verifyAndDecodeToken } = require("../../utils/jwtHelper");
 
-const { SECRET: secret, JWT_ALGORITHM: algorithm } = process.env;
+const { JWT_SECRET: secret, JWT_ALGORITHM: algorithm } = process.env;
 
 const generateToken = (object) => {
     const signOptions = {
