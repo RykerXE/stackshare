@@ -26,7 +26,8 @@
     "lodash": "^4.17.19",
     "mongoose": "^5.9.25",
     "mongoose-aggregate-paginate-v2": "^1.0.42",
-    "pino": "^6.4.0"
+    "pino": "^6.4.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
