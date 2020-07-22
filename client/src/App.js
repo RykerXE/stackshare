@@ -9,10 +9,16 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Home from './components/Home';
 import theme from './theme';
+import { getUser } from './actions';
 
 
 const App = () => {
   const token = localStorage.getItem('token') || null;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   let routes = (
     <Switch>

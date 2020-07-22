@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 //import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Grid, Button, Hidden, InputLabel, MenuItem, FormControl, Select, Divider } from '@material-ui/core';
@@ -13,6 +13,7 @@ import moment from 'moment';
 import ShareList from './ShareList';
 import UserShareList from './UserShareList';
 import RealTimeShare from './RealtimeShare';
+import { logout } from '../actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,6 +31,13 @@ const useStyles = makeStyles(theme => ({
 const Header = props => {
   const { className, ...rest } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { history } = props;
+
+  const handleLogout = () => {
+    history.push('/login');
+    dispatch(logout());
+  };
 
   return (
     <div
@@ -61,6 +69,12 @@ const Header = props => {
           >
             Welcome Rajnish
           </Typography>
+          <Button
+            variant="contained"
+            onClick={handleLogout}
+          >
+            LOG OUT
+          </Button>
         </Grid>
       </Grid>
       <Grid
@@ -122,4 +136,4 @@ Header.propTypes = {
   className: PropTypes.string
 };
 
-export default Header;
+export default withRouter(Header);

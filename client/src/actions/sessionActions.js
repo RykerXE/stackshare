@@ -24,7 +24,7 @@ export const login = (payload, history) => dispatch => {
 };
 
 export const logout = () => dispatch => {
-  localStorage.removeItem("token");
+  localStorage.clear();
   window.location.reload(false);
   dispatch({
     type: SESSION_LOGOUT
